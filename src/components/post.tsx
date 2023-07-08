@@ -1,16 +1,57 @@
+import { Image } from "expo-image";
 import { FC } from "react";
-import { Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { POST } from "../constants/screens";
+import { NavigationProp } from "@react-navigation/native";
+import { RootStackParamList } from "../navigators/root-navigator";
 
 interface PostProps {
   title: string;
+  id: string;
   description: string;
+  navigation: NavigationProp<RootStackParamList>;
 }
 
-export const Post: FC<PostProps> = ({ title, description }) => {
+export const Post: FC<PostProps> = ({ title, description, navigation, id }) => {
+  const _handlePostPress = () => {
+    navigation.navigate(POST, { id });
+  };
+
   return (
-    <View>
-      <Text>{title}</Text>
-      <Text>{description}</Text>
-    </View>
+    <Pressable onPress={_handlePostPress}>
+      <View style={styles.container}>
+        <Image
+          source={
+            "https://media1.popsugar-assets.com/files/thumbor/kfg2lRQYsjKzz6eBeuMN9I9NUUY/0x49:2219x2268/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2021/02/04/699/n/44701584/5437a292601c16d9e44d22.63502940_/i/who-is-josephine-langford-facts.jpg"
+          }
+          style={styles.image}
+        />
+        <View style={styles.textContainer}>
+          <Text style={styles.name}>{title}</Text>
+          <Text>{description}</Text>
+        </View>
+      </View>
+    </Pressable>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    paddingVertical: 12,
+    columnGap: 12,
+  },
+  image: {
+    width: 40,
+    height: 40,
+    borderRadius: 999,
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  textContainer: {
+    width: 0,
+    flexGrow: 1,
+  },
+});
