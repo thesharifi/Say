@@ -1,9 +1,14 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Home } from "../screens/home";
-import { HOME } from "../constants/screens";
+import { Home, Post } from "../screens";
+import { HOME, POST } from "../constants/screens";
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  [HOME]: undefined;
+  [POST]: { id: string };
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigator = () => {
   return (
@@ -15,6 +20,7 @@ export const RootNavigator = () => {
         initialRouteName={HOME}
       >
         <Stack.Screen component={Home} name={HOME} />
+        <Stack.Screen component={Post} name={POST} />
       </Stack.Navigator>
     </NavigationContainer>
   );
