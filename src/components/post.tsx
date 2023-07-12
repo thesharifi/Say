@@ -7,6 +7,7 @@ import { RootStackParamList } from "../navigators/root-navigator";
 import { Title } from "./custom/title";
 import { TouchableWrapper } from "./touchable-wrapper";
 import { CommentSvg, FilledHeartSvg, HeartSvg } from "../icons";
+import { CommentModal } from "./comment-modal";
 
 interface PostProps {
   title: string;
@@ -43,9 +44,9 @@ export const Post: FC<PostProps> = ({ title, description, navigation, id }) => {
         </View>
       </Pressable>
       <View style={styles.bottomWrapper}>
-        <TouchableWrapper style={styles.icon}>
+        <CommentModal iconStyle={styles.icon}>
           <CommentSvg />
-        </TouchableWrapper>
+        </CommentModal>
         <TouchableWrapper style={styles.icon} onPress={_handleLikePress}>
           {liked ? <FilledHeartSvg fill="#f91880" /> : <HeartSvg />}
         </TouchableWrapper>
