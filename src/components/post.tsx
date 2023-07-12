@@ -1,12 +1,12 @@
 import { Image } from "expo-image";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { POST } from "../constants/screens";
 import { NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from "../navigators/root-navigator";
 import { Title } from "./custom/title";
 import { TouchableWrapper } from "./touchable-wrapper";
-import { CommentSvg, HeartSvg } from "../icons";
+import { CommentSvg, FilledHeartSvg, HeartSvg } from "../icons";
 
 interface PostProps {
   title: string;
@@ -16,8 +16,14 @@ interface PostProps {
 }
 
 export const Post: FC<PostProps> = ({ title, description, navigation, id }) => {
+  const [liked, setLiked] = useState(false);
+
   const _handlePostPress = () => {
     navigation.navigate(POST, { id });
+  };
+
+  const _handleLikePress = () => {
+    setLiked((prev) => !prev);
   };
 
   return (
@@ -40,8 +46,8 @@ export const Post: FC<PostProps> = ({ title, description, navigation, id }) => {
         <TouchableWrapper style={styles.icon}>
           <CommentSvg />
         </TouchableWrapper>
-        <TouchableWrapper style={styles.icon}>
-          <HeartSvg />
+        <TouchableWrapper style={styles.icon} onPress={_handleLikePress}>
+          {liked ? <FilledHeartSvg fill="#f91880" /> : <HeartSvg />}
         </TouchableWrapper>
       </View>
     </>
