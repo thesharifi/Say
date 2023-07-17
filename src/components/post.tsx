@@ -13,14 +13,16 @@ interface PostProps {
   title: string;
   id: string;
   description: string;
-  navigation: NavigationProp<RootStackParamList>;
+  navigation?: NavigationProp<RootStackParamList>;
 }
 
 export const Post: FC<PostProps> = ({ title, description, navigation, id }) => {
   const [liked, setLiked] = useState(false);
 
   const _handlePostPress = () => {
-    navigation.navigate(POST, { id });
+    if (navigation) {
+      navigation.navigate(POST, { id });
+    }
   };
 
   const _handleLikePress = () => {
